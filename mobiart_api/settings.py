@@ -1,3 +1,4 @@
+
 """
 Django settings for mobiart_api project.
 
@@ -25,7 +26,7 @@ SECRET_KEY = 'nm-^i!u(f8@8+u*!rk4at-*^o-&pkv0q3!0huj3f8bwfys^ah1'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
