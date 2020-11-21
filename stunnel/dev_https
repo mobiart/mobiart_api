@@ -1,0 +1,12 @@
+pid=
+
+cert = stunnel/stunnel.pem
+sslVersion = SSLv3
+foreground = yes
+output = stunnel.log
+
+[https]
+accept=443
+connect=80
+TIMEOUTclose=1
+
