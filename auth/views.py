@@ -17,9 +17,10 @@ def index(request):
     if request.method == "GET":
         URL = "https://graph.facebook.com/v9.0/oauth/access_token?client_id=281582256624404&redirect_uri=https%3A%2F%2Fmilsugi.tech%2Fapi%2Fauth&oq=redirect_uri%3Dhttps%3A%2F%2Fmilsugi.tech%2Fapi%2Fauth&client_secret=6b0fce6ce450d741fcccbd2d8167b906&code="+request.GET["code"]
         r = requests.get(url=URL)
-        token = r.json()["access_token"]
+        token=r.json()["access_token"]
 
-        r=requests.get(url="https://graph.facebook.com/me?access_token="+access_token)
+
+        r=requests.get(url="https://graph.facebook.com/me?access_token="+token)
         uid = r.json()["id"]
 
         try:
@@ -30,7 +31,7 @@ def index(request):
 
         except Exception as e:
             if str(e) == "Profile matching query does not exist.":
-                profile = Profile.objects.create(uid=request.POST["id_token"],access_token=name,email=user_data["email"],platform="apple")
+                profile = Profile.objects.create(user_id=uid,access_token=token,platform="facebook")
                 profile.save()
 
                 serializer = ProfileSerializer(profile)
