@@ -30,3 +30,4 @@ def me(request):
     profile = Profile.objects.filter(pk=data["id"]).get()
     serializer = ProfileSerializer(profile, many=False)
     return Response(serializer.data)
+
