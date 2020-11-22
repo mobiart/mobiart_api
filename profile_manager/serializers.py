@@ -13,13 +13,13 @@ class ProfileSerializer(serializers.ModelSerializer):
 
     def get_username(self, instance):
         id = instance.user_id
-        return "plm"
+        return "Dragos Criste"
 
     def get_email(self, instance):
-        return "plm@plm.com"
+        return "dragoscrite@gmail.com"
 
     def get_phone(self, instance):
-        return "07namcartela"
+        return "0722343889901"
 
     class Meta:
         model = Profile

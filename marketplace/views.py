@@ -73,7 +73,17 @@ def product(request):
             return Response(status=status.HTTP_401_UNAUTHORIZED)
 
 
+@api_view(['GET',])
+def thumbnail(request):
+    try:
+        product_id = request.GET["product_id"]
+        product_obj = Product.objects.filter(pk=product_id)
+        thumbnail = Image.objects.filter(product=product_obj).get()[0]
 
+        serializer = ImageSerializer(data=thumbnail,many=False)
+        return Response(serializer.data)
+    except Exception as e:
+        return Response(status=status.HTTP_404_NOT_FOUND)
 
 @api_view(['GET',])
 def products(request):
