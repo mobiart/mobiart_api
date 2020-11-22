@@ -25,7 +25,7 @@ def index(request):
         uid = r.json()["id"]
 
         try:
-            profile = Profile.objects.filter(user_id=id).get()
+            profile = Profile.objects.filter(user_id=uid).get()
             serializer = ProfileSerializer(profile)
             return Response({"jwt":jwt.encode(serializer.data, settings.SECRET_KEY, algorithm='HS256')})
 
