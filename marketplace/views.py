@@ -35,11 +35,11 @@ def product(request):
         serializer = ProductSerializer(data=product_data,many=False)
         if serializer.is_valid():
             try:
-                product = Product.objects.create(name=request.data["name"],details=request.data["details"],active=request.data["active"],user=profile.pk)
+                product = Product.objects.create(name=serializer.data["name"],details=serializer.data["details"],active=serializer.data["active"],price=serializer.data["price"],price_upon_request=serializer.data["price_upon_request"],user=profile)
                 product.save()
                 return Response(status=status.HTTP_201_CREATED)
             except Exception as e:
-                return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+                return Response({"err":str(e)})
         else:
             return Response(serializer.errors)
 

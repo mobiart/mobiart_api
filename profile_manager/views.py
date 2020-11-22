@@ -35,20 +35,20 @@ def bookmark(request):
             return Response(status=status.HTTP_401_UNAUTHORIZED)
 
         try:
-            product_obj = Product.objects.filter(pk=request.data["product_id"])
+            product_obj = Product.objects.filter(pk=request.data["product_id"]).get()
         except Exception as e:
             return Response(status=status.HTTP_401_UNAUTHORIZED)
 
         try:
-            bookmark = Bookmark.objects.filter(product=product_obj,user=user_obj).get()
+            bookmark = Bookmark.objects.filter(product=product_obj).filter(user=profile_obj).get()
             bookmark.delete()
             return Response(status=status.HTTP_202_ACCEPTED)
         except Exception as e:
-            if str(e) == "Profile matching query does not exist.":
-                bookmark = Bookmark.objects.create(product=product_obj,user=user_obj)
+            if str(e) == "Bookmark matching query does not exist.":
+                bookmark = Bookmark.objects.create(product=product_obj,user=profile_obj)
                 return Response(status=status.HTTP_202_ACCEPTED)
 
-            return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)        
+            return Response({"err":str(e)})        
     
 
 

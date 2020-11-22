@@ -5,7 +5,7 @@ class Product(models.Model):
     user = models.ForeignKey('profile_manager.Profile', on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
     details = models.CharField(max_length=1000)
-    price_upon_requset = models.BooleanField(default = False)
+    price_upon_request = models.BooleanField(default = False)
     price = models.FloatField()
     active = models.BooleanField(default = False)
 
