@@ -5,7 +5,7 @@ from .models import Product, Image
 
 class ProductSerializer(serializers.ModelSerializer):
 
-    id = serializers.SerializerMethodField('get_id')
+    product_id = serializers.SerializerMethodField('get_id')
 
     def get_id(self, instance):
         id = instance.pk
