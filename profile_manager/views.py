@@ -52,21 +52,24 @@ def bookmark(request):
     
 
 
-@api_view(['POST',])
+@api_view(['GET',])
 def bookmarks(request):
     try:
-        user_data = jwt.decode(request.data['jwt'].encode("UTF-8"), settings.SECRET_KEY, algorithm='HS256')
-        profile_obj = Profile.objects.filter(user_id=user_data["user_id"]).get()
+        
+        profile_obj = Profile.objects.filter(pk=request.GET["user_id"]).get()
     except Exception as e:
-        return Response(status=status.HTTP_401_UNAUTHORIZED)
+        return Response({"error":str(e)})
 
     try:
-        bookmarks = Bookmark.objects.filter(profile=profile_obj).get()
-        serializer = BookmarkSerializer(data=bookmark,many=True)
-        return Response(serializer.data)
+        bookmarks = Bookmark.objects.filter(user=profile_obj).get()
+        
+        bookmarks_json = {"id":1,"name":"1980s street-art","details":"I will perform 1980s-style street art for any home-owner that wants so spice-up their house with some beautiful art.","price_upon_request":False,"price":0.0,"thumbnail":"https://thumbs-prod.si-cdn.com/6E3HqsOY5S_e05bqDnZ-HKdd8Ek=/fit-in/1072x0/https://public-media.si-cdn.com/filer/9f/5d/9f5d258f-cd88-467a-83f6-f123b0bced6b/graffiti_artist_in_greece.jpg","active":True,"user":1}
+
+        return Response(bookmarks_json)
+
     except Exception as e:
         
-        return Response(status=status.HTTP_404_NOT_FOUND)
+        return Response({"error":str(e)})
         
 @api_view(['POST',])
 def me(request):

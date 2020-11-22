@@ -5,7 +5,7 @@ from . import views
 urlpatterns = [
     path('', views.index),
     path('bookmark/',views.bookmark),
-    path('bookmarks/,',views.bookmarks),
+    path('bookmarks/',views.bookmarks),
     path('@me/', views.me)
 
 ]
