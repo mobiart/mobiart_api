@@ -12,11 +12,13 @@ class ProfileSerializer(serializers.ModelSerializer):
 
 
     def get_username(self, instance):
-        id = instance.user_id
-        return "Dragos Criste"
+        r=requests.get(url="https://graph.facebook.com/me?access_token="+access_token)
+
+        return r.json()["name"]
 
     def get_email(self, instance):
-        return "dragoscrite@gmail.com"
+        r=requests.get(url="https://graph.facebook.com/"+instance.user_id+"?fields=email")
+        return r.json()["email"]
 
     def get_phone(self, instance):
         return "0722343889901"

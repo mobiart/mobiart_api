@@ -5,11 +5,11 @@ from .models import Product, Image
 
 class ProductSerializer(serializers.ModelSerializer):
 
-    product_id = serializers.SerializerMethodField('get_id')
+    pid = serializers.SerializerMethodField('get_pid')
 
-    def get_id(self, instance):
-        id = instance.pk
-        return id
+    def get_pid(self, instance):
+        pid = instance.pk
+        return pid
 
     class Meta:
         model = Product
