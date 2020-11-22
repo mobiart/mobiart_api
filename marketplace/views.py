@@ -91,7 +91,7 @@ def products(request):
     filters = json.loads(request.GET["filters"])
     products = Product.objects.all()[filters["start"]:filters["start"]+filters["size"]]
     serializer = ProductSerializer(products, many=True)
-    return Response({serializer.data,"thumbnail":)
+    return Response(serializer.data)
 
 @api_view(['GET',"POST","PUT","DELETE"])
 def image(request):

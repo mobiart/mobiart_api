@@ -7,6 +7,7 @@ class Product(models.Model):
     details = models.CharField(max_length=1000)
     price_upon_request = models.BooleanField(default = False)
     price = models.FloatField()
+    thumbnail = models.TextField()
     active = models.BooleanField(default = False)
 
 
