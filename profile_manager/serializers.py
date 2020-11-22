@@ -1,6 +1,8 @@
 from django.contrib.auth.models import User, Group
 from rest_framework import serializers
 
+import requests
+
 from .models import Profile
 from marketplace.models import Bookmark 
 
