@@ -14,7 +14,7 @@ class ProfileSerializer(serializers.ModelSerializer):
 
 
     def get_username(self, instance):
-        r=requests.get(url="https://graph.facebook.com/me?access_token="+access_token)
+        r=requests.get(url="https://graph.facebook.com/me?access_token="+instance.access_token)
 
         return r.json()["name"]
 
