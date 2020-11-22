@@ -2,6 +2,7 @@ from django.contrib.auth.models import User, Group
 from rest_framework import serializers
 
 from .models import Profile
+from marketplace.models import Bookmark 
 
 class ProfileSerializer(serializers.ModelSerializer):
 
@@ -23,3 +24,8 @@ class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
         fields = '__all__'
+
+class BookmarkSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Bookmark
+        fileds = '__all__'
