@@ -9,6 +9,7 @@ from .models import Product,Image
 from profile_manager.models import Profile 
 
 import jwt
+import json
 
 @api_view(['GET',"POST","PUT","DELETE"])
 def product(request):
@@ -77,7 +78,7 @@ def product(request):
 @api_view(['GET',])
 def products(request):
 
-    filters = request.GET["filters"]
+    filters = json.loads(request.GET["filters"])
     products = Product.objects.all()[filters["start"]:filters["start"]+filters["size"]]
     serializer = ProductSerializer(products, many=True)
     return Response(serializer.data)
