@@ -42,9 +42,11 @@ def bookmark(request):
         try:
             bookmark = Bookmark.objects.filter(product=product_obj,user=user_obj).get()
             bookmark.delete()
+            return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
         except Exception as e:
             if str(e) == "Profile matching query does not exist.":
                 bookmark = Bookmark.objects.create(product=product_obj,user=user_obj)
+                return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
        
     
 
