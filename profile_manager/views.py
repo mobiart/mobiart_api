@@ -38,14 +38,13 @@ def bookmark(request):
     except Exception as e:
         return Response(status=status.HTTP_401_UNAUTHORIZED)
 
-    try:
-        if Bookmark.objects.filter(product=product_obj,user=user_obj) == None:
-            bookmark = Bookmark.objects.create(product=product_obj,user=user_obj)
-        elif Bookmark.objects.filter(product=product_obj,user=user_obj) != None:
-            bookmark = Bookmark.objects.filter(product=product_obj,user=user_obj).get()
-            bookmark.delete()
-    except Exception as e:
-        return Response(status=status.HTTP_404_NOT_FOUND)
+    
+    if Bookmark.objects.filter(product=product_obj,user=user_obj) == None:
+        bookmark = Bookmark.objects.create(product=product_obj,user=user_obj)
+    elif Bookmark.objects.filter(product=product_obj,user=user_obj) != None:
+        bookmark = Bookmark.objects.filter(product=product_obj,user=user_obj).get()
+        bookmark.delete()
+    
 
 
 @api_view(['POST',])
