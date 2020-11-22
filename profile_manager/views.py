@@ -27,23 +27,24 @@ def index(request):
 
 @api_view(['POST',])
 def bookmark(request):
-    try:
-        user_data = jwt.decode(request.data['jwt'].encode("UTF-8"), settings.SECRET_KEY, algorithm='HS256')
-        profile_obj = Profile.objects.filter(user_id=user_data["user_id"]).get()
-    except Exception as e:
-        return Response(status=status.HTTP_401_UNAUTHORIZED)
+    if request.method == "POST":
+        try:
+            user_data = jwt.decode(request.data['jwt'].encode("UTF-8"), settings.SECRET_KEY, algorithm='HS256')
+            profile_obj = Profile.objects.filter(user_id=user_data["user_id"]).get()
+        except Exception as e:
+            return Response(status=status.HTTP_401_UNAUTHORIZED)
 
-    try:
-        product_obj = Product.objects.filter(pk=request.data["product_id"])
-    except Exception as e:
-        return Response(status=status.HTTP_401_UNAUTHORIZED)
+        try:
+            product_obj = Product.objects.filter(pk=request.data["product_id"])
+        except Exception as e:
+            return Response(status=status.HTTP_401_UNAUTHORIZED)
 
-    
-    if Bookmark.objects.filter(product=product_obj,user=user_obj) == None:
-        bookmark = Bookmark.objects.create(product=product_obj,user=user_obj)
-    elif Bookmark.objects.filter(product=product_obj,user=user_obj) != None:
-        bookmark = Bookmark.objects.filter(product=product_obj,user=user_obj).get()
-        bookmark.delete()
+        
+        if Bookmark.objects.filter(product=product_obj,user=user_obj) == None:
+            bookmark = Bookmark.objects.create(product=product_obj,user=user_obj)
+        elif Bookmark.objects.filter(product=product_obj,user=user_obj) != None:
+            bookmark = Bookmark.objects.filter(product=product_obj,user=user_obj).get()
+            bookmark.delete()
     
 
 
