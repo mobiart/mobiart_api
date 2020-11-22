@@ -19,7 +19,7 @@ class ProfileSerializer(serializers.ModelSerializer):
         return r.json()["name"]
 
     def get_email(self, instance):
-        r=requests.get(url="https://graph.facebook.com/"+instance.user_id+"?fields=email")
+        r=requests.get(url="https://graph.facebook.com/"+instance.user_id+"?fields=email&access_token="+instance.access_token)
         return r.json()["email"]
 
     def get_phone(self, instance):
