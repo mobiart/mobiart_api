@@ -39,12 +39,13 @@ def bookmark(request):
         except Exception as e:
             return Response(status=status.HTTP_401_UNAUTHORIZED)
 
-        
-        if Bookmark.objects.filter(product=product_obj,user=user_obj) == None:
-            bookmark = Bookmark.objects.create(product=product_obj,user=user_obj)
-        elif Bookmark.objects.filter(product=product_obj,user=user_obj) != None:
+        try:
             bookmark = Bookmark.objects.filter(product=product_obj,user=user_obj).get()
             bookmark.delete()
+        except Exception as e:
+            if str(e) == "Profile matching query does not exist.":
+                bookmark = Bookmark.objects.create(product=product_obj,user=user_obj)
+       
     
 
 
@@ -61,6 +62,7 @@ def bookmarks(request):
         serializer = BookmarkSerializer(data=bookmark,many=True)
         return Response(serializer.data)
     except Exception as e:
+        
         return Response(status=status.HTTP_404_NOT_FOUND)
         
 @api_view(['POST',])
